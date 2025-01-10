@@ -1,19 +1,22 @@
-// Importer Express
+// Importation
 const express = require('express');
+const dotenv = require('dotenv');
+const cors = require('cors');
 
-// Créer une instance d'application Express
+// Configurer dotenv (charger les données du fichier .env)
+dotenv.config();
+
+// Créer une instance d'application Express et définir le port
 const app = express();
-
-// Définir un port
 const PORT = 8000;
 
-// Middleware pour parser le JSON dans les requêtes
-app.use(express.json());
+// configurer CORS
+app.use(cors({ origin: 'http://localhost:3000' })); // Autoriser localhost:3000
+app.use(express.json()); // Middleware pour parser le JSON
 
-// Définir une route de test
-app.get('/', (req, res) => {
-    res.send('Hello World!');
-});
+// Importer et utiliser les routes
+const authRoutes = require('./routes/authRoutes');
+app.use('/api', authRoutes);
 
 // Démarrer le serveur
 app.listen(PORT, () => {

@@ -47,3 +47,7 @@ input {
   border-radius: 5px;
   box-sizing: border-box;
 }
+
+.logoutButton {
+  width: 10%;
+}
