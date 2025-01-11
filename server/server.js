@@ -3,14 +3,14 @@ const express = require('express');
 const dotenv = require('dotenv');
 const cors = require('cors');
 
-// Configurer dotenv (charger les données du fichier .env)
+// Configurer dotenv (charger les données du fichier .env dans process.env)
 dotenv.config();
 
 // Créer une instance d'application Express et définir le port
 const app = express();
-const PORT = 8000;
+const PORT = process.env.PORT; //utilisation du port défini dans le fichier .env
 
-// configurer CORS
+// configurer CORS : pour autoriser l'interaction avec le serveur depuis l'extérieur
 app.use(cors({ origin: 'http://localhost:3000' })); // Autoriser localhost:3000
 app.use(express.json()); // Middleware pour parser le JSON
 

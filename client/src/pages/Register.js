@@ -8,16 +8,31 @@ const Register = () => {
   const [password, setPassword] = useState('');
 
   const handleRegister = async () => {
-    const response = await fetch('http://localhost:8000/api/register', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name, email, password }),
-    });
-    const data = await response.json();
-    if (data.message) {
-      window.location.href = '/';
-    } else {
-      console.error(data.error);
+    try {
+      //envoie de la requête de registering à l'api
+      const response = await fetch('http://localhost:8000/api/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, password }),
+      });
+
+      //vérifier si la réponse indique une erreur
+      if (!response.ok){
+        const errorData = await response.json();
+        console.error(errorData.error); //affichage de l'erreur dans la console
+        alert(errorData.message); //popup pour informer l'utilisateur de ce qu'il a mal fait
+        return;
+      }
+
+      //si la réponse est ok (201)
+      const data = await response.json();
+      console.log(data.message); // Affiche "User registered successfully" dans la console
+      window.location.href = '/'; //redirection vers la page par défaut (la page de login)
+    }
+    catch(error) {
+      // Gestion des erreurs réseau ou autres
+      console.error('Erreur réseau ou serveur :', error);
+      alert('Impossible de se connecter au serveur. Vérifiez votre connexion.');
     }
   };
 

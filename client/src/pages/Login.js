@@ -7,23 +7,38 @@ const Login = () => {
   const [password, setPassword] = useState('');
 
   const handleLogin = async () => {
-    const response = await fetch('http://localhost:8000/api/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, password }),
-    });
-    const data = await response.json();
-    if (data.token) {
-      localStorage.setItem('token', data.token);
-      window.location.href = '/home';
-    } else {
-      console.error(data.error);
+    try {
+      //envoie de la requête de connexion à l'api
+      const response = await fetch('http://localhost:8000/api/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password }),
+      });
+
+      //vérifier si la réponse server indique une erreur
+      if(!response.ok){
+        const errorData = await response.json();
+        console.error(errorData.error); //affichage de l'erreur dans la console
+        alert(errorData.message); //popup pour informer l'utilisateur de ce qu'il a mal fait
+        return;
+      }
+
+      //Si la réponse est un succès (ok 201) on la traite
+      const data = await response.json();
+      localStorage.setItem('token', data.token); //stockage du token dans le local storage
+      console.log(data.message); // Affiche "Succesfully logged in" dans la console
+      window.location.href = '/home'; //redirection vers la page home
+    }
+    catch(error){
+      // Gestion des erreurs réseau ou autres exceptions
+      console.error('Erreur réseau ou serveur :', error);
+      alert('Impossible de se connecter au serveur. Vérifiez votre connexion.');
     }
   };
 
   const handleSubmit = (e) => {
-      e.preventDefault();
-      console.log('Login submitted');
+    e.preventDefault();
+    console.log('Login submitted');
   };
 
   return(    

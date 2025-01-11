@@ -7,6 +7,7 @@ function Home() {
     // Vérifie si un token existe et tente de valider l'utilisateur
     useEffect(() => {
     const checkAuth = async () => {
+        //chargement du token depuis la mémoire locale
         const token = localStorage.getItem('token');
 
         if (!token) {
@@ -21,6 +22,7 @@ function Home() {
                 headers: { Authorization: token },
         });
 
+        //en fonction de la réponse du serveur sur la vérification du token
         if (response.ok) {
             const data = await response.json();
             setMessage(`Welcome to the Home Page, ${data.user.email}!`);

@@ -1,6 +1,6 @@
 /*
 * authRoutes.js
-* Création des routes register et login et mise en lien avec les controleurs
+* Création des routes register, login et home puis mise en lien avec les controleurs
 */
 
 //Importations
@@ -11,13 +11,13 @@ const authenticateToken = require('../middleware/authMiddleware');
 //déclaration du router 
 const router = express.Router();
 
-// Route pour l'inscription
+// Route "register"
 router.post('/register', registerUser);
 
-// Route pour la connexion
+// Route "login"
 router.post('/login', loginUser);
 
-// Route protégée pour la page home
+// Route protégée "home"
 router.get('/home', authenticateToken, (req, res) => {
     res.json({ message: 'Access granted to home page.', user: req.user });
 });
