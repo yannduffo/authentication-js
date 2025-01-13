@@ -31,8 +31,8 @@ const Login = () => {
     }
     catch(error){
       // Gestion des erreurs réseau ou autres exceptions
-      console.error('Erreur réseau ou serveur :', error);
-      alert('Impossible de se connecter au serveur. Vérifiez votre connexion.');
+      console.error('Network or server error :', error);
+      alert('Connexion to the server failed, check your internet connexion.');
     }
   };
 

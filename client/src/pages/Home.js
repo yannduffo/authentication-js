@@ -25,7 +25,7 @@ function Home() {
         //en fonction de la réponse du serveur sur la vérification du token
         if (response.ok) {
             const data = await response.json();
-            setMessage(`Welcome to the Home Page, ${data.user.email}!`);
+            setMessage(`Welcome to the Home Page, ${data.user.name}!`);
             setIsAuthenticated(true);
         } else {
             setMessage('Unauthorized: Invalid token.');
