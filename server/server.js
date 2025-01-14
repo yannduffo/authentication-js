@@ -17,7 +17,7 @@ const sslKey = fs.readFileSync('../selfsigned.key');
 const sslCertificate = fs.readFileSync('../selfsigned.crt');
 
 // configurer CORS : pour autoriser l'interaction avec le serveur depuis l'extérieur
-app.use(cors({ origin: 'http://localhost:3000' })); // Autoriser localhost:3000
+app.use(cors({ origin: 'https://localhost:3000' })); // Autoriser localhost:3000
 app.use(express.json()); // Middleware pour parser le JSON
 
 // Importer et utiliser les routes
