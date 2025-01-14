@@ -17,7 +17,7 @@ function Home() {
 
         try {
             // Appel au backend pour vérifier le token
-            const response = await fetch('http://localhost:8000/api/home', {
+            const response = await fetch('https://localhost:8000/api/home', {
                 method: 'GET',
                 headers: { Authorization: token },
         });
